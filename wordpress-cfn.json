@@ -225,9 +225,10 @@
                     "install_wordpress": {
                         "packages": {
                             "yum": {
-                                "php74": [],
-                                "php74-mysqlnd": [],
-                                "httpd24": []
+                                "php": [],
+                                "php-mysqlnd": [],
+                                "httpd": [],
+                                "mysql": []
                             }
                         },
                         "sources": {
@@ -303,6 +304,10 @@
                         "services": {
                             "sysvinit": {
                                 "httpd": {
+                                    "enabled": "true",
+                                    "ensureRunning": "true"
+                                },
+                                "mysqld": {
                                     "enabled": "true",
                                     "ensureRunning": "true"
                                 }
@@ -382,6 +387,8 @@
                             "",
                             [
                                 "#!/bin/bash -xe\n",
+                                "echo 'Checking internet access...'\n",
+                                "ping -c 3 google.com || { echo 'No internet access!'; exit 1; }\n",
                                 "yum update -y aws-cfn-bootstrap\n",
                                 "/opt/aws/bin/cfn-init -v ",
                                 "         --stack ",
@@ -416,7 +423,7 @@
             },
             "CreationPolicy": {
                 "ResourceSignal": {
-                    "Timeout": "PT15M"
+                    "Timeout": "PT30M"  // Increased timeout to 30 minutes
                 }
             }
         }
