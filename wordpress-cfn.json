@@ -423,7 +423,7 @@
             },
             "CreationPolicy": {
                 "ResourceSignal": {
-                    "Timeout": "PT30M"  // Increased timeout to 30 minutes
+                    "Timeout": "PT30M"
                 }
             }
         }
