@@ -84,22 +84,22 @@
                 "UserData": { "Fn::Base64": { "Fn::Join": [ "", [
                     "#!/bin/bash -xe\n",
                     "yum update -y aws-cfn-bootstrap\n",
-                    "amazon-linux-extras enable php7.4\n",  // Enable PHP 7.4
-                    "yum install -y httpd php php-mysqlnd\n",  // Install PHP 7.4 and required modules
+                    "amazon-linux-extras enable php7.4\n",
+                    "yum install -y httpd php php-mysqlnd\n",
                     "service httpd start\n",
                     "chkconfig httpd on\n",
                     "cd /var/www/html\n",
                     "curl -O https://wordpress.org/latest.tar.gz\n",
                     "tar -xzf latest.tar.gz\n",
-                    "mv wordpress/* .\n",  // Move WordPress files to the root directory
-                    "rm -rf wordpress latest.tar.gz\n",  // Clean up
-                    "cp wp-config-sample.php wp-config.php\n",  // Copy the config file
-                    "sed -i 's/database_name_here/'", { "Ref": "DBName" }, "'/g' wp-config.php\n",  // Update DB name
-                    "sed -i 's/username_here/'", { "Ref": "DBUser" }, "'/g' wp-config.php\n",  // Update DB user
-                    "sed -i 's/password_here/'", { "Ref": "DBPassword" }, "'/g' wp-config.php\n",  // Update DB password
-                    "chown -R apache:apache /var/www/html\n",  // Set permissions
-                    "chmod -R 755 /var/www/html\n",  // Set permissions
-                    "service httpd restart\n"  // Restart Apache
+                    "mv wordpress/* .\n",
+                    "rm -rf wordpress latest.tar.gz\n",
+                    "cp wp-config-sample.php wp-config.php\n",
+                    "sed -i 's/database_name_here/'", { "Ref": "DBName" }, "'/g' wp-config.php\n",
+                    "sed -i 's/username_here/'", { "Ref": "DBUser" }, "'/g' wp-config.php\n",
+                    "sed -i 's/password_here/'", { "Ref": "DBPassword" }, "'/g' wp-config.php\n",
+                    "chown -R apache:apache /var/www/html\n",
+                    "chmod -R 755 /var/www/html\n",
+                    "service httpd restart\n"
                 ]]}}
             }
         }
@@ -107,7 +107,7 @@
     "Outputs": {
         "WebsiteURL": {
             "Description": "URL of the WordPress website",
-            "Value": { "Fn::Join": [ "", [ "http://", { "Fn::GetAtt": [ "WebServer", "PublicDnsName" ] } ]] }  // Root URL
+            "Value": { "Fn::Join": [ "", [ "http://", { "Fn::GetAtt": [ "WebServer", "PublicDnsName" ] } ]] }
         }
     }
 }
